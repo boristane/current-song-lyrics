@@ -74,7 +74,9 @@ async function main() {
   let oldSOng: ICurrentSongResponse;
   const timeToWait = 20 * 1000;
 
-  currentSong = await getCurrentSong(token);
+  while (!currentSong) {
+    currentSong = await getCurrentSong(token);
+  }
   const artists = currentSong.item.artists.map(o => o.name);
   const artist = artists[0];
   const title = currentSong.item.name;
@@ -85,6 +87,7 @@ async function main() {
   while (true) {
     await await timeToWait;
     currentSong = await getCurrentSong(token);
+    if (!currentSong) continue;
     const artists = currentSong.item.artists.map(o => o.name);
     const artist = artists[0];
     const title = currentSong.item.name;

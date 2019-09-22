@@ -62,9 +62,13 @@ def get_token():
     "Authorization": auth,
     "Content-Type": "application/x-www-form-urlencoded",
   }
-  response = requests.post("https://accounts.spotify.com/api/token", data=query_string, headers=headers)
-  if response.status_code != 200:
-    return jsonify({ "error": "invalid_token" }), 500
+  try:
+    response = requests.post("https://accounts.spotify.com/api/token", data=query_string, headers=headers)
+    if response.status_code != 200:
+      return jsonify({ "error": "invalid_token" }), 500
+  except:
+      return jsonify({ "error": "invalid_token" }), 500
+  
   return response.json(), 200
 
 @app.route("/refresh-token")
@@ -80,17 +84,23 @@ def refresh_token():
     "Authorization": auth,
     "Content-Type": "application/x-www-form-urlencoded",
   }
-  response = requests.post("https://accounts.spotify.com/api/token", data=query_string, headers=headers)
-  if response.status_code != 200:
+  try:
+    response = requests.post("https://accounts.spotify.com/api/token", data=query_string, headers=headers)
+    if response.status_code != 200:
+      return jsonify({ "error": "invalid_token" }), 500
+  except:
     return jsonify({ "error": "invalid_token" }), 500
   return response.json(), 200
 
 @app.route('/api/current-song')
 def current_song():
   token = request.args.get("token")
-  song = get_current_song(token)
-  if song is None:
-    return jsonify({"error": "song not found"}), 204
+  try:
+    song = get_current_song(token)
+    if song is None:
+      return jsonify({"error": "song not found"}), 204
+  except:
+      return jsonify({"error": "song not found"}), 204
   return jsonify(song), 200
 
 @app.route('/api/lyrics')

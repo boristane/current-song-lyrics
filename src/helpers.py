@@ -10,10 +10,13 @@ def get_song_data(title, artist):
   token = getenv("GENIUS_TOKEN")
   headers = { 'Authorization': 'Bearer ' + token }
   data = { 'q': title + ' ' + artist }
-  data = requests.get(base_url + '/search', data=data, headers=headers).json()
-  for song in data["response"]["hits"]:
-    if artist.lower() in song['result']['primary_artist']['name'].lower():
-      return song
+  try:
+    data = requests.get(base_url + '/search', data=data, headers=headers).json()
+    for song in data["response"]["hits"]:
+      if artist.lower() in song['result']['primary_artist']['name'].lower():
+        return song
+  except:
+    return None
       
 def get_genius_lyrics(url):
   page = requests.get(url)
