@@ -1,6 +1,6 @@
 from app import app
-from helpers import generate_random_string
-from flask import make_response, redirect, request, jsonify, render_template, send_from_directory
+from helpers import generate_random_string, get_current_song, get_song_lyrics
+from flask import make_response, redirect, request, jsonify, send_from_directory
 from urllib.parse import urlencode
 from dotenv import load_dotenv
 from os import getenv
@@ -84,3 +84,20 @@ def refresh_token():
   if response.status_code != 200:
     return jsonify({ "error": "invalid_token" }), 500
   return response.json(), 200
+
+@app.route('/api/current-song')
+def current_song():
+  token = request.args.get("token")
+  song = get_current_song(token)
+  if song is None:
+    return jsonify({"error": "song not found"}), 204
+  return jsonify(song), 200
+
+@app.route('/api/lyrics')
+def get_lyrics():
+  title = request.args.get("title")
+  artist = request.args.get("artist")
+  lyrics = get_song_lyrics(artist=artist, title=title)
+  if lyrics is None:
+    return jsonify({"error": "lyrics not found"}), 204
+  return jsonify(lyrics), 200
