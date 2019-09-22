@@ -31,7 +31,10 @@ def get_song_lyrics(title, artist):
     app.logger.info('Error getting song data for {}, {}: {}'.format(title, artist, error))
     return
   if song:
-    lyrics = get_genius_lyrics(song['result']['url'])
+    try:
+      lyrics = get_genius_lyrics(song['result']['url'])
+    except:
+      return None
     return lyrics
 
 def get_current_song(token):

@@ -50,13 +50,31 @@ async function wait(time: number) {
   });
 }
 
-function displayLyrics(artists: string[], title: string, lyrics: string) {
+function displayLyrics(artists: string[], title: string, lyrics: string, cover: string) {
   document.querySelector(".title").textContent = title;
   document.querySelector(".artists").textContent = artists.map(artist => artist).join(", ");
   document.querySelector(".lyrics").innerHTML = buildParagraphs(lyrics);
+  (document.getElementById("cover") as HTMLImageElement).src = cover;
+  getBackground(lyrics);
+}
+
+function getBackground(lyrics: string) {
+  const colorPairs = [["#ff8f7a", "#fd4928"]];
+  const body = document.querySelector(".lyrics");
+  if (!lyrics) {
+    body.style.background = "white";
+    body.style.color = "black";
+  } else {
+    const colorPair = colorPairs[Math.floor(Math.random() * colorPairs.length)];
+    const s = `linear-gradient(to bottom right, ${colorPair[0]} 0%, ${colorPair[1]} 100%)`;
+    body.style.background = s;
+    body.style.color = "white";
+  }
 }
 
 function buildParagraphs(lyrics: string): string {
+  lyrics = lyrics.trim();
+  if (lyrics.length === 0) return "Lyrics not available";
   const paras = lyrics.split("\n");
   const result = paras.join("</br>");
   console.log(result);
@@ -81,7 +99,8 @@ async function main() {
   const artist = artists[0];
   const title = currentSong.item.name;
   const lyrics = await getLyrics(artist, title);
-  displayLyrics(artists, title, lyrics);
+  const cover = currentSong.item.album.images[0].url;
+  displayLyrics(artists, title, lyrics, cover);
   oldSOng = currentSong;
 
   while (true) {
@@ -95,7 +114,8 @@ async function main() {
       continue;
     }
     const lyrics = await getLyrics(artist, title);
-    displayLyrics(artists, title, lyrics);
+    const cover = currentSong.item.album.images[0].url;
+    displayLyrics(artists, title, lyrics, cover);
     oldSOng = currentSong;
   }
 }
