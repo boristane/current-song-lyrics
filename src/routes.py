@@ -1,6 +1,6 @@
 from app import app
 from helpers import generate_random_string
-from flask import make_response, redirect, request, jsonify, render_template
+from flask import make_response, redirect, request, jsonify, render_template, send_from_directory
 from urllib.parse import urlencode
 from dotenv import load_dotenv
 from os import getenv
@@ -17,7 +17,11 @@ spotify_client_secret = getenv("SPOTIFY_CLIENT_SECRET")
 @app.route("/")
 @app.route("/index")
 def index():
-  return render_template('index.html')
+  return send_from_directory('static', 'index.html')
+
+@app.route("/lyrics")
+def lyrics():
+  return send_from_directory('static', 'lyrics.html')
 
 @app.route("/login")
 def login():

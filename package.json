@@ -1,0 +1,25 @@
+{
+  "name": "current-song-lyrics",
+  "version": "1.0.0",
+  "description": "A tiny web app to display the lyrics of the song I'm currently playing on Spotify",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx parcel build ./src/templates/*.html",
+    "watch": "npx parcel watch ./src/public/*.html -d src/static"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boristane/current-song-lyrics.git"
+  },
+  "author": "Boris Tane",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boristane/current-song-lyrics/issues"
+  },
+  "homepage": "https://github.com/boristane/current-song-lyrics#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "parcel": "^1.12.3",
+    "typescript": "^3.6.3"
+  }
+}

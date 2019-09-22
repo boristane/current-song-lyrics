@@ -6,6 +6,6 @@ from flask import Flask, escape, request
 
 load_dotenv()
 
-app = Flask(__name__, static_url_path='/public')
+app = Flask(__name__, static_url_path='/', static_folder="static", template_folder="templates")
 
 import routes
