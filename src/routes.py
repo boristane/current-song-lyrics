@@ -1,6 +1,6 @@
 from app import app
 from helpers import generate_random_string
-from flask import make_response, redirect, request, jsonify
+from flask import make_response, redirect, request, jsonify, render_template
 from urllib.parse import urlencode
 from dotenv import load_dotenv
 from os import getenv
@@ -17,7 +17,7 @@ spotify_client_secret = getenv("SPOTIFY_CLIENT_SECRET")
 @app.route("/")
 @app.route("/index")
 def index():
-  return "Hello, World"
+  return render_template('index.html')
 
 @app.route("/login")
 def login():
@@ -59,6 +59,24 @@ def get_token():
     "Content-Type": "application/x-www-form-urlencoded",
   }
   response = requests.post("https://accounts.spotify.com/api/token", data=query_string, headers=headers)
-  if response.status_code !== 200:
+  if response.status_code != 200:
+    return jsonify({ "error": "invalid_token" }), 500
+  return response.json(), 200
+
+@app.route("/refresh-token")
+def refresh_token():
+  token = request.args.get("refresh_token")
+  auth = 'Basic ' + base64.b64encode((spotify_client_id + ':' + spotify_client_secret).encode('ascii')).decode("utf-8")
+  query = {
+    "grant_type": "refresh_token",
+    "refresh_token": token
+  }
+  query_string = urlencode(query)
+  headers = {
+    "Authorization": auth,
+    "Content-Type": "application/x-www-form-urlencoded",
+  }
+  response = requests.post("https://accounts.spotify.com/api/token", data=query_string, headers=headers)
+  if response.status_code != 200:
     return jsonify({ "error": "invalid_token" }), 500
   return response.json(), 200
