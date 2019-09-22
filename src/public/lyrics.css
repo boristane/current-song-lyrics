@@ -4,17 +4,19 @@
 body {
   font-family: "Dosis", sans-serif;
   max-width: 800px;
+  min-height: 100vh;
   margin: auto;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  padding-top: 100px;
+  padding-bottom: 100px;
   font-size: 1.5em;
   box-sizing: border-box;
   color: white;
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
+  opacity: 0;
 
-  transition: all 0.5s ease-out;
+  transition: opacity 1s ease-out;
 }
 
 .title {
@@ -41,6 +43,25 @@ body {
 
 #cover {
   width: 100%;
+}
+
+a:link {
+  text-decoration: none;
+  color: white;
+  transition: all 0.5 ease-out;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+a:active {
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 1600px) {
@@ -83,10 +104,12 @@ body {
 
   .image {
     width: 80%;
+    max-width: 300px;
     padding: 0;
     margin: auto;
   }
   body {
-    margin: 5%;
+    margin: 0 5%;
+    padding: 15px 0;
   }
 }

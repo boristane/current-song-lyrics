@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ICurrentSongResponse } from "./types";
-console.log("index");
+import Vibrant from "node-vibrant";
 
 async function getToken(): Promise<string> {
   const params = new URLSearchParams(window.location.search);
@@ -50,26 +50,25 @@ async function wait(time: number) {
   });
 }
 
-function displayLyrics(artists: string[], title: string, lyrics: string, cover: string) {
+async function displayLyrics(artists: string[], title: string, lyrics: string, cover: string) {
+  const body = document.querySelector("body");
+  body.style.opacity = "0";
+  await wait(1000);
   document.querySelector(".title").textContent = title;
   document.querySelector(".artists").textContent = artists.map(artist => artist).join(", ");
   document.querySelector(".lyrics").innerHTML = buildParagraphs(lyrics);
   (document.getElementById("cover") as HTMLImageElement).src = cover;
-  getBackground(lyrics);
+  const palette = await Vibrant.from(cover).getPalette();
+  const colorPair = [palette.LightVibrant.getHex(), palette.DarkVibrant.getHex()];
+  getBackground(lyrics, colorPair);
+  body.style.opacity = "1";
 }
 
-function getBackground(lyrics: string) {
-  const colorPairs = [["#ff8f7a", "#fd4928"]];
-  const body = document.querySelector(".lyrics");
-  if (!lyrics) {
-    body.style.background = "white";
-    body.style.color = "black";
-  } else {
-    const colorPair = colorPairs[Math.floor(Math.random() * colorPairs.length)];
-    const s = `linear-gradient(to bottom right, ${colorPair[0]} 0%, ${colorPair[1]} 100%)`;
-    body.style.background = s;
-    body.style.color = "white";
-  }
+function getBackground(lyrics: string, colorPair: string[]) {
+  const body = document.querySelector("body");
+  const s = `linear-gradient(to bottom right, ${colorPair[0]} 0%, ${colorPair[1]} 100%)`;
+  body.style.background = s;
+  body.style.color = "white";
 }
 
 function buildParagraphs(lyrics: string): string {
@@ -77,7 +76,6 @@ function buildParagraphs(lyrics: string): string {
   if (lyrics.length === 0) return "Lyrics not available";
   const paras = lyrics.split("\n");
   const result = paras.join("</br>");
-  console.log(result);
   return result;
 }
 
