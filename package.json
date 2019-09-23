@@ -4,7 +4,7 @@
   "description": "A tiny web app to display the lyrics of the song I'm currently playing on Spotify",
   "main": "index.js",
   "scripts": {
-    "build": "npx parcel build ./src/templates/*.html",
+    "build": "npx parcel build ./src/public/*.html -d src/static",
     "watch": "npx parcel watch ./src/public/*.html -d src/static"
   },
   "repository": {
