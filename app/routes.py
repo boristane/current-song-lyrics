@@ -1,4 +1,4 @@
-from app import app
+from main import app
 from helpers import generate_random_string, get_current_song, get_song_lyrics
 from flask import make_response, redirect, request, jsonify, send_from_directory
 from urllib.parse import urlencode

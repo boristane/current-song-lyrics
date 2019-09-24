@@ -1,6 +1,6 @@
-import axios from "axios";
 import { ICurrentSongResponse } from "./types";
 import Vibrant from "node-vibrant";
+import axios from "axios";
 
 async function getToken(): Promise<string> {
   const params = new URLSearchParams(window.location.search);
@@ -88,7 +88,7 @@ async function main() {
   }
   let currentSong: ICurrentSongResponse;
   let oldSOng: ICurrentSongResponse;
-  const timeToWait = 20 * 1000;
+  const timeToWait = 0.5 * 1000;
 
   while (!currentSong) {
     currentSong = await getCurrentSong(token);
@@ -102,7 +102,7 @@ async function main() {
   oldSOng = currentSong;
 
   while (true) {
-    await await timeToWait;
+    await wait(timeToWait);
     currentSong = await getCurrentSong(token);
     if (!currentSong) continue;
     const artists = currentSong.item.artists.map(o => o.name);

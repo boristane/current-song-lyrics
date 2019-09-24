@@ -2,10 +2,10 @@
 FROM tiangolo/uwsgi-nginx-flask:python3.7
 
 # Set the working directory to /app
-WORKDIR /lyrically
+WORKDIR /app
 
 # Copy the current directory contents into the container at /app
-COPY . .
+COPY ./app /app
 
 # Install any needed packages specified in requirements.txt
 RUN pip install -U pip
@@ -21,9 +21,7 @@ RUN npm install
 RUN npm run build
 
 # Make port 80 available to the world outside this container
-EXPOSE 5000
+EXPOSE 80
 
 # Define environment variable
 ENV NAME current-song-lyrics
-
-CMD [ "python", "./src/app.py" ]

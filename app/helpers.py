@@ -3,7 +3,7 @@ from os import getenv
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 import random
-from app import app
+from main import app
 
 def get_song_data(title, artist):
   base_url = 'https://api.genius.com'

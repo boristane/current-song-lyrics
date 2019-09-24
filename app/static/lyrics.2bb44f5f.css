@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css?family=Dosis&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Major+Mono+Display&display=swap");
+
+body {
+  font-family: "Dosis", sans-serif;
+  max-width: 800px;
+  min-height: 100vh;
+  margin: auto;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  font-size: 1.5em;
+  box-sizing: border-box;
+  color: white;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  opacity: 0;
+
+  transition: opacity 1s ease-out;
+}
+
+.title {
+  font-family: "Major Mono Display", monospace;
+  font-size: 3em;
+  margin-top: 0;
+}
+
+.header {
+  min-height: 300px;
+  margin-bottom: 50px;
+  margin-left: -350px;
+}
+
+.description {
+  margin-left: 350px;
+}
+
+.image {
+  width: 300px;
+  padding: 0;
+  position: fixed;
+}
+
+#cover {
+  width: 100%;
+}
+
+a:link {
+  text-decoration: none;
+  color: white;
+  transition: all 0.5 ease-out;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+@media only screen and (max-width: 1600px) {
+  .header {
+    margin-bottom: 50px;
+    margin-left: 0px;
+    display: grid;
+    grid-template-columns: 300px calc(100% - 300px);
+  }
+
+  .description {
+    margin-left: 20px;
+  }
+
+  .image {
+    width: 300px;
+    padding: 0;
+    position: static;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .header {
+    display: block;
+  }
+
+  .description {
+    margin-left: 0px;
+  }
+
+  .title {
+    margin-top: 10px;
+    font-size: 1.5em;
+  }
+
+  .artists {
+    margin: 0px 0;
+    font-size: 1em;
+  }
+
+  .image {
+    width: 80%;
+    max-width: 300px;
+    padding: 0;
+    margin: auto;
+  }
+  body {
+    margin: 0 5%;
+    padding: 15px 0;
+  }
+}
+
+
+/*# sourceMappingURL=/lyrics.2bb44f5f.css.map */
