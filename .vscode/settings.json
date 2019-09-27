@@ -1,5 +1,5 @@
 {
-  "python.pythonPath": "/home/boristane/Tutorials/current-song-lyrics/.venv/bin/python3.6",
+  "python.pythonPath": ".venv/bin/python",
   "python.linting.pylintEnabled": false,
   "python.linting.pep8Enabled": true,
   "python.linting.enabled": true

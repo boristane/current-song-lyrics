@@ -104,4 +104,4 @@ venv.bak/
 .mypy_cache/
 node_modules
 
-src/static
+**/static
