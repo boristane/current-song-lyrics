@@ -62,6 +62,11 @@ async function displayLyrics(artists: string[], title: string, lyrics: string, c
   const colorPair = [palette.LightVibrant.getHex(), palette.DarkVibrant.getHex()];
   getBackground(colorPair);
   section.style.opacity = "1";
+  window.scroll({
+    top: 0,
+    left: 0,
+    behavior: "smooth"
+  });
 }
 
 function getBackground(colorPair: string[]) {
