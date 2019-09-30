@@ -67,6 +67,7 @@ async function displayLyrics(artists: string[], title: string, lyrics: string, c
     left: 0,
     behavior: "smooth"
   });
+  document.title = `${title} - ${artists.map(artist => artist).join(", ")}`;
 }
 
 function getBackground(colorPair: string[]) {
