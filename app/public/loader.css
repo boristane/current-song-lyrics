@@ -2,7 +2,7 @@
   z-index: 1;
   position: absolute;
   left: calc(50% - 30px);
-  top: 50%;
+  top: calc(50% - 30px);
   margin: auto;
   border: 8px solid #f3f3f3;
   border-radius: 50%;

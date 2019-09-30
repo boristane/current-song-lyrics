@@ -12,6 +12,7 @@ body {
   max-width: 400px;
   margin: auto;
   text-align: center;
+  padding: 0 20px;
 }
 
 body {
@@ -51,7 +52,7 @@ body {
   display: inline-block;
   cursor: pointer;
   margin-top: 20px;
-  transition: all 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
 }
 
 #primaryButton:hover {
