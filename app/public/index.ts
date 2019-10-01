@@ -110,10 +110,11 @@ async function main() {
   let cover;
 
   if (!currentSong) {
-    artists = ["Artist not Found"];
+    artists = ["Artist not Found 😪"];
     artist = artists[0];
     title = "Song not Found";
-    lyrics = "";
+    lyrics =
+      "🤔 It seems you're are not playing any song... Head over to Spotify and press that ▶️ button ! Then come back here to see magic 🎉 🎉";
     cover = "https://i.scdn.co/image/276cd871d7750e9a002aada5237e328798b53650";
   } else {
     artists = currentSong.item.artists.map(o => o.name);
