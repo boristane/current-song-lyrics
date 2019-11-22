@@ -8,7 +8,9 @@ from bs4 import BeautifulSoup
 import random
 import dotenv
 
-dotenv.load_dotenv()
+token = getenv("GENIUS_TOKEN")
+if (token is None):
+    dotenv.load_dotenv()
 
 
 app = Flask(__name__, static_url_path='/',
