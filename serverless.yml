@@ -20,22 +20,29 @@ package:
 plugins:
   - serverless-wsgi
   - serverless-python-requirements
+  - serverless-domain-manager
 
 custom:
   wsgi:
     app: ./app/main.app
     packRequirements: false
+  customDomain:
+    domainName: lyrically.be
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+    endpointType: 'regional'
 
 environment:
     GENIUS_TOKEN: ${ssm:/boristane/lyrically/genius/token}
     SPOTIFY_CLIENT_ID: ${ssm:/boristane/lyrically/spotify/client-id}
-    SPOTIFY_REDIRECT_URI: "http://localhost:5000/lyrics"
+    SPOTIFY_REDIRECT_URI: "https://lyrically.be/lyrics"
     SPOTIFY_CLIENT_SECRET: ${ssm:/boristane/lyrically/spotify/client-id}
 
 
 functions:
   app:
-    handler: wsgi.handler
+    handler: wsgi_handler.handler
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
