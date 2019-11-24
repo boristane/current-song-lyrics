@@ -94,7 +94,7 @@ async function main() {
   }
   let currentSong: ICurrentSongResponse;
   let oldSOng: ICurrentSongResponse;
-  const timeToWait = 0.5 * 1000;
+  const timeToWait = 2 * 1000;
 
   let numTries = 0;
   while (!currentSong && numTries <= 5) {

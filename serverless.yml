@@ -16,6 +16,7 @@ package:
     - .venv/**
     - .cache/**
     - .vscode/**
+    - .env
 
 plugins:
   - serverless-wsgi
@@ -28,21 +29,21 @@ custom:
     packRequirements: false
   customDomain:
     domainName: lyrically.be
-    basePath: ''
     stage: ${self:provider.stage}
     createRoute53Record: true
     endpointType: 'regional'
-
-environment:
-    GENIUS_TOKEN: ${ssm:/boristane/lyrically/genius/token}
-    SPOTIFY_CLIENT_ID: ${ssm:/boristane/lyrically/spotify/client-id}
-    SPOTIFY_REDIRECT_URI: "https://lyrically.be/lyrics"
-    SPOTIFY_CLIENT_SECRET: ${ssm:/boristane/lyrically/spotify/client-id}
-
+    securityPolicy: tls_1_2
 
 functions:
   app:
     handler: wsgi_handler.handler
+    environment:
+      GENIUS_TOKEN: ${ssm:/boristane/lyrically/genius/token}
+      SPOTIFY_CLIENT_ID: ${ssm:/boristane/lyrically/spotify/client-id}
+      SPOTIFY_REDIRECT_URI: "https://lyrically.be/lyrics"
+      SPOTIFY_CLIENT_SECRET: ${ssm:/boristane/lyrically/spotify/client-secret}
     events:
       - http: ANY /
+        cors: true
       - http: 'ANY {proxy+}'
+        cors: true

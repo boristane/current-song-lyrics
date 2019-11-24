@@ -7,6 +7,7 @@ from flask import Flask, escape, request, make_response, redirect, request, json
 from bs4 import BeautifulSoup
 import random
 import dotenv
+from lambda_decorators import cors_headers
 
 token = getenv("GENIUS_TOKEN")
 if (token is None):
@@ -81,17 +82,20 @@ spotify_redirect_uri = getenv("SPOTIFY_REDIRECT_URI")
 spotify_client_secret = getenv("SPOTIFY_CLIENT_SECRET")
 
 
+@cors_headers
 @app.route("/")
 @app.route("/index")
 def index():
     return send_from_directory('static', 'index.html')
 
 
+@cors_headers
 @app.route("/lyrics")
 def lyrics():
     return send_from_directory('static', 'lyrics.html')
 
 
+@cors_headers
 @app.route("/login")
 def login():
     state = generate_random_string(16)
@@ -113,6 +117,7 @@ def login():
     return resp
 
 
+@cors_headers
 @app.route("/get-token")
 def get_token():
     code = request.args.get("code")
@@ -144,6 +149,7 @@ def get_token():
     return response.json(), 200
 
 
+@cors_headers
 @app.route("/refresh-token")
 def refresh_token():
     token = request.args.get("refresh_token")
@@ -168,6 +174,7 @@ def refresh_token():
     return response.json(), 200
 
 
+@cors_headers
 @app.route('/api/current-song')
 def current_song():
     token = request.args.get("token")
@@ -180,6 +187,7 @@ def current_song():
     return jsonify(song), 200
 
 
+@cors_headers
 @app.route('/api/lyrics')
 def get_lyrics():
     title = request.args.get("title")
