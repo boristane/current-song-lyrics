@@ -138,6 +138,7 @@ a:active {
     font-size: 0.8em;
     margin-top: 10px;
     overflow-y: auto;
+    background: linear-gradient(to bottom, rgba(255,255,255, 0.05) 2%, rgba(255,255,255, 0) 10% );
     height: calc(100vh - 180px);
   }
 }
