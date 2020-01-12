@@ -136,5 +136,8 @@ a:active {
 
   .lyrics {
     font-size: 0.8em;
+    margin-top: 10px;
+    overflow-y: auto;
+    height: calc(100vh - 180px);
   }
 }
