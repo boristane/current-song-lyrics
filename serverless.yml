@@ -22,7 +22,6 @@ plugins:
   - serverless-wsgi
   - serverless-python-requirements
   - serverless-domain-manager
-
 custom:
   wsgi:
     app: ./app/main.app
