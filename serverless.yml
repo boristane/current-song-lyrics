@@ -39,7 +39,7 @@ functions:
     environment:
       GENIUS_TOKEN: ${ssm:/boristane/lyrically/genius/token}
       SPOTIFY_CLIENT_ID: ${ssm:/boristane/lyrically/spotify/client-id}
-      SPOTIFY_REDIRECT_URI: "https://lyrically.be/lyrics"
+      SPOTIFY_REDIRECT_URI: ${file(./${opt:stage}.yml):spotifyRedirectUrl}
       SPOTIFY_CLIENT_SECRET: ${ssm:/boristane/lyrically/spotify/client-secret}
     events:
       - http: ANY /

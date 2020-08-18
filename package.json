@@ -6,8 +6,8 @@
   "scripts": {
     "build": "npx parcel build ./app/public/*.html -d ./app/static",
     "watch": "npx parcel watch ./app/public/*.html -d ./app/static",
-    "serve": "npm run build && sls wsgi serve",
-    "deploy": "npm run build && sls deploy"
+    "serve": "npm run build && sls wsgi serve --stage local",
+    "deploy": "npm run build && sls deploy --stage dev"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
     "typescript": "^3.7.5"
   },
   "devDependencies": {
-    "serverless-domain-manager": "^3.3.1",
+    "serverless-domain-manager": "^3.3.2",
     "serverless-python-requirements": "^5.1.0",
     "serverless-wsgi": "^1.7.4"
   }

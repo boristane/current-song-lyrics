@@ -7,6 +7,7 @@ from flask import Flask, escape, request, make_response, redirect, request, json
 from bs4 import BeautifulSoup
 import random
 import dotenv
+import time
 from lambda_decorators import cors_headers
 
 token = getenv("GENIUS_TOKEN")
@@ -31,11 +32,13 @@ def get_song_data(title, artist):
                 return song
     except:
         return None
+    raise("Unable to find song in Genius")
 
 
 def get_genius_lyrics(url):
     page = requests.get(url)
     html = BeautifulSoup(page.text, 'html.parser')
+    count = 0
     lyrics = html.find('div', class_='lyrics').get_text()
     return lyrics
 
@@ -46,13 +49,14 @@ def get_song_lyrics(title, artist):
     except Exception as error:
         app.logger.info(
             'Error getting song data for {}, {}: {}'.format(title, artist, error))
-        return
+        raise ValueError('Error getting song data for {}, {}'.format(title, artist))
     if song:
         try:
             lyrics = get_genius_lyrics(song['result']['url'])
-        except:
+            return lyrics
+        except Exception as error:
+            app.logger.info('Error getting lyrics data for {}: {}'.format(song['result']['url'], error))
             return None
-        return lyrics
 
 
 def get_current_song(token):
@@ -194,5 +198,5 @@ def get_lyrics():
     artist = request.args.get("artist")
     lyrics = get_song_lyrics(artist=artist, title=title)
     if lyrics is None:
-        return jsonify({"error": "lyrics not found"}), 204
+        return jsonify({"error": "lyrics not found"}), 404
     return jsonify(lyrics), 200

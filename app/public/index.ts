@@ -34,14 +34,22 @@ async function getCurrentSong(token: string): Promise<ICurrentSongResponse> {
 
 async function getLyrics(artist, title): Promise<string> {
   let response;
-  try {
-    response = await axios.get(`/api/lyrics?artist=${artist}&title=${title}`);
-  } catch (error) {
-    if (error.response && error.response.status !== 204) window.location.replace("/");
-    return;
+  let count = 0;
+  while (count < 5) {
+    try {
+      response = await axios.get(`/api/lyrics?artist=${artist}&title=${title}`);
+      const lyrics = response.data;
+      return lyrics;
+    } catch (error) {
+      console.log(error);
+      if (error.response && error.response.status === 404) {
+        count += 1;
+      } else {
+        return "";
+      }
+    }
   }
-  const lyrics = response.data;
-  return lyrics;
+  return "";
 }
 
 async function wait(time: number) {
