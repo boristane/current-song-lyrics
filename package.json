@@ -22,7 +22,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "node-vibrant": "^3.1.5",
-    "parcel": "^1.12.3",
+    "parcel": "^2.8.2",
     "typescript": "^3.7.5"
   },
   "devDependencies": {
